@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<dormitories>
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Іваненко Петро Іванович</FullName>
+			<DormitoryNumber>16</DormitoryNumber>
+			<Floor>8</Floor>
+			<RoomNumber>804/3</RoomNumber>
+			<ContractEndDate>2024-06-30</ContractEndDate>
+			<IsResidingInDormitory>Ні</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Факультет комп'ютерних наук та кібернетики</Faculty>
+				<Department>Математична інформатика</Department>
+				<Course>3</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+	
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Сидоренко Василь Петрович</FullName>
+			<DormitoryNumber>16</DormitoryNumber>
+			<Floor>6</Floor>
+			<RoomNumber>604/2</RoomNumber>
+			<ContractEndDate>2024-06-30</ContractEndDate>
+			<IsResidingInDormitory>Так</IsResidingInDormitory>
+	   <AcademicDetails>
+		   <Faculty>Факультет комп'ютерних наук та кібернетики</Faculty>
+		   <Department>Прикладна статистика</Department>
+		   <Course>1</Course>
+		</AcademicDetails>
+	   </PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Петренко Марія Іванівна</FullName>
+			<DormitoryNumber>17</DormitoryNumber>
+			<Floor>7</Floor>
+			<RoomNumber>704/2</RoomNumber>
+			<ContractEndDate>2026-06-30</ContractEndDate>
+			<IsResidingInDormitory>Ні</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Інститут філології</Faculty>
+				<Department>Зарубіжна література</Department>
+				<Course>2</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Коваленко Олександр Сергійович</FullName>
+			<DormitoryNumber>18</DormitoryNumber>
+			<Floor>5</Floor>
+			<RoomNumber>504/3</RoomNumber>
+			<ContractEndDate>2025-06-30</ContractEndDate>
+			<IsResidingInDormitory>Так</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Інститут журналістики</Faculty>
+				<Department>Соціальні комунікації</Department>
+				<Course>2</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Шевченко Ірина Володимирівна</FullName>
+			<DormitoryNumber>17</DormitoryNumber>
+			<Floor>7</Floor>
+			<RoomNumber>704/2</RoomNumber>
+			<ContractEndDate>2025-06-30</ContractEndDate>
+			<IsResidingInDormitory>Ні</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Інститут філології</Faculty>
+				<Department>Комунікації і лінгвокраїнознавство</Department>
+				<Course>3</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Мельник Юрій Петрович</FullName>
+			<DormitoryNumber>14</DormitoryNumber>
+			<Floor>3</Floor>
+			<RoomNumber>304/3</RoomNumber>
+			<ContractEndDate>2026-06-30</ContractEndDate>
+			<IsResidingInDormitory>Так</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Інститут міжнародних відносин</Faculty>
+				<Department>Міжнародні відносини і зовнішня політика</Department>
+				<Course>2</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Ткаченко Анна Миколаївна</FullName>
+			<DormitoryNumber>1</DormitoryNumber>
+			<Floor>4</Floor>
+			<RoomNumber>404/2</RoomNumber>
+			<ContractEndDate>2025-06-30</ContractEndDate>
+			<IsResidingInDormitory>Ні</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Факультет радіофізики, електроніки та комп'ютерних систем</Faculty>
+				<Department>Електрофізика</Department>
+				<Course>1</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Павленко Вікторія Ігорівна</FullName>
+			<DormitoryNumber>17</DormitoryNumber>
+			<Floor>7</Floor>
+			<RoomNumber>704/3</RoomNumber>
+			<ContractEndDate>2025-06-30</ContractEndDate>
+			<IsResidingInDormitory>Так</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Інститут філології</Faculty>
+				<Department>Зарубіжна література</Department>
+				<Course>1</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Бойко Дмитро Васильович</FullName>
+			<DormitoryNumber>18</DormitoryNumber>
+			<Floor>6</Floor>
+			<RoomNumber>604/3</RoomNumber>
+			<ContractEndDate>2024-06-30</ContractEndDate>
+			<IsResidingInDormitory>Ні</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Інститут журналістики</Faculty>
+				<Department>Мови та стилістики</Department>
+				<Course>3</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+	
+	<dormitory>
+	<PersonalInformation>
+		<FullName>Сидоренко Дмитро Петрович</FullName>
+		<DormitoryNumber>16</DormitoryNumber>
+		<Floor>6</Floor>
+		<RoomNumber>604/2</RoomNumber>
+		<ContractEndDate>2025-06-30</ContractEndDate>
+		<IsResidingInDormitory>Так</IsResidingInDormitory>
+	   <AcademicDetails>
+		   <Faculty>Факультет комп'ютерних наук та кібернетики</Faculty>
+		   <Department>Прикладна статистика</Department>
+		   <Course>3</Course>
+		</AcademicDetails>
+	   </PersonalInformation>
+	</dormitory>
+	
+</dormitories>
