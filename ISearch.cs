@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Laba_2.MainPage;
 
-namespace Laba_2
+namespace Laba_2;
+public interface ISearch
 {
-    /*public interface ISearch
-    {
-        List<Dormitory> SearchDormitories(string xmlPath, Dormitory filterDormitory);
-    }*/
+    List<Dormitory> Search(string xmlFilePath, List<string> filterDormitory);
 }
