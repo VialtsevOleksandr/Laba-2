@@ -8,5 +8,5 @@ using static Laba_2.MainPage;
 namespace Laba_2;
 public interface ISearch
 {
-    List<Dormitory> Search(string xmlFilePath, List<string> filterDormitory);
+    List<Dormitory> Search(string xmlFilePath, Dictionary<string, string> filterDormitory);
 }

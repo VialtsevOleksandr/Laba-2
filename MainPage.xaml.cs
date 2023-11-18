@@ -9,8 +9,10 @@ namespace Laba_2;
 public partial class MainPage : ContentPage
 {
     public string selectedFilePath = "";
-    List<string> filterDormitory = new List<string>();
+    public Dictionary<string, string> filterDormitory = new Dictionary<string, string>();
     public ISearch LINQ = new LINQ();
+    public ISearch DOM = new DOM();
+    public ISearch SAX = new SAX();
     ScrollView FrameScrollView = new ScrollView { Orientation = ScrollOrientation.Horizontal };
     StackLayout FrameStackLayout = new StackLayout { Orientation = StackOrientation.Horizontal };
     public MainPage()
@@ -30,21 +32,22 @@ public partial class MainPage : ContentPage
     private void LoadPicker(Picker picker, string elementPath)
     {
             XDocument doc = XDocument.Load(selectedFilePath);
-            var elements = doc.Descendants("dormitory")
-                .Select(d =>
+        var elements = doc.Descendants("dormitory")
+            .Select(d =>
+            {
+                var pathParts = elementPath.Split('/');
+                var currentElement = d.Element("PersonalInformation");
+                foreach (var part in pathParts)
                 {
-                    var pathParts = elementPath.Split('/');
-                    var currentElement = d.Element("PersonalInformation");
-                    foreach (var part in pathParts)
-                    {
-                        currentElement = currentElement.Element(part);
-                    }
-                    return (string)currentElement;
-                })
-                .Distinct()
-                .ToList();
-            picker.ItemsSource = elements;
-     }
+                    currentElement = currentElement.Element(part);
+                }
+                return (string)currentElement;
+            })
+            .Distinct();
+        bool canParseToInt = elements.All(e => int.TryParse(e, out _));
+        var sortedElements = canParseToInt ? elements.OrderBy(int.Parse).ToList() : elements.OrderBy(x => x).ToList();
+        picker.ItemsSource = sortedElements;
+    }
 
     public class Dormitory
     {
@@ -175,7 +178,7 @@ public partial class MainPage : ContentPage
     }
     private void SearchButton_Enable()
     {
-        if ((SAXBox.IsChecked == false) && (LINQBox.IsChecked == false) && (DOMBox.IsChecked == false))
+        if (((SAXBox.IsChecked == false) && (LINQBox.IsChecked == false) && (DOMBox.IsChecked == false)) || (selectedFilePath == string.Empty))
         {
             SearchButton.IsEnabled = false;
         }
@@ -210,7 +213,7 @@ public partial class MainPage : ContentPage
             {
                 XslCompiledTransform xslt = new XslCompiledTransform();
                 xslt.Load("C:\\Visual Studio project\\Laba 2\\Dormitories.xsl");
-                xslt.Transform(selectedFilePath, "C:\\Visual Studio project\\Laba 2\\Dormitories.html");
+                xslt.Transform(selectedFilePath, Path.ChangeExtension(selectedFilePath, "html"));
                 await DisplayAlert("Успішно", "Конвертація пройшла успішно", "OK");
             }
             else
@@ -250,6 +253,9 @@ public partial class MainPage : ContentPage
             LoadPicker(RoomNumberPicker, "RoomNumber");
             LoadPicker(ContractEndDatePicker, "ContractEndDate");
             LoadPicker(IsResidingInDormitoryPicker, "IsResidingInDormitory");
+            FrameStackLayout.Children.Clear();
+            FrameScrollView.Content = null;
+            Main.Children.Remove(FrameScrollView);
             await DisplayAlert($"Ви обрали файл: {result.FileName}", "", "OK");
         }
         else
@@ -257,91 +263,105 @@ public partial class MainPage : ContentPage
             await DisplayAlert("Відміна вибору", "Ви не обрали файл. Будь ласка, оберіть файл", "OK");
         }
     }
-    private void AddToFilterDormitory(string text, bool isEnabled)
+    private void AddToFilterDormitory(string key, string value, bool isEnabled)
+{
+    if (!string.IsNullOrEmpty(value) && isEnabled)
     {
-        if (!string.IsNullOrEmpty(text) && isEnabled)
+        filterDormitory[key] = value;
+    }
+}
+    private void DisplayDormitories(List<Dormitory> dormitories)
+    {
+        foreach (Dormitory dormitory in dormitories)
         {
-            filterDormitory.Add(text);
+            Frame frame = new Frame
+            {
+                BorderColor = Colors.Black,
+                BackgroundColor = Colors.Beige,
+                CornerRadius = 15,
+                Margin = new Thickness(0, 0, 5, 0),
+                Content = new VerticalStackLayout
+                    {
+                        new HorizontalStackLayout
+                        {
+                            new Label { Text = "П.І.П:", FontFamily = "Impact", FontSize = 14, Padding = new Thickness(0, 0, 5, 0) },
+                            new Label { Text = dormitory.FullName, FontSize = 14 }
+                        },
+                        new HorizontalStackLayout
+                        {
+                            new Label { Text = "Номер гуртожитку:", FontFamily = "Impact", FontSize = 14, Padding = new Thickness(0, 0, 5, 0) },
+                            new Label { Text = dormitory.DormitoryNumber.ToString(), FontSize = 14 }
+                        },
+                        new HorizontalStackLayout
+                        {
+                            new Label { Text = "Поверх:", FontFamily = "Impact", FontSize = 14, Padding = new Thickness(0, 0, 5, 0) },
+                            new Label { Text = dormitory.Floor.ToString(), FontSize = 14 }
+                        },
+                        new HorizontalStackLayout
+                        {
+                            new Label { Text = "Номер кімнати:", FontFamily = "Impact", FontSize = 14, Padding = new Thickness(0, 0, 5, 0) },
+                            new Label { Text = dormitory.RoomNumber.ToString(), FontSize = 14 }
+                        },
+                        new HorizontalStackLayout
+                        {
+                            new Label { Text = "Дата закінчення договору:", FontFamily = "Impact", FontSize = 14, Padding = new Thickness(0, 0, 5, 0) },
+                            new Label { Text = dormitory.ContractEndDate.ToString("yyyy-MM-dd"), FontSize = 14 }
+                        },
+                        new HorizontalStackLayout
+                        {
+                            new Label { Text = "Чи проживає у гуртожитку:", FontFamily = "Impact", FontSize = 14, Padding = new Thickness(0, 0, 5, 0) },
+                            new Label { Text = dormitory.IsResidingInDormitory.ToString(), FontSize = 14 }
+                        },
+                        new HorizontalStackLayout
+                        {
+                            new Label { Text = "Факультет:", FontFamily = "Impact", FontSize = 14, Padding = new Thickness(0, 0, 5, 0) },
+                            new Label { Text = dormitory.Faculty.ToString(), FontSize = 14 }
+                        },
+                        new HorizontalStackLayout
+                        {
+                            new Label { Text = "Кафедра:", FontFamily = "Impact", FontSize = 14, Padding = new Thickness(0, 0, 5, 0) },
+                            new Label { Text = dormitory.Department.ToString(), FontSize = 14 }
+                        },
+                        new HorizontalStackLayout
+                        {
+                            new Label { Text = "Курс:", FontFamily = "Impact", FontSize = 14, Padding = new Thickness(0, 0, 5, 0) },
+                            new Label { Text = dormitory.Course.ToString(), FontSize = 14 }
+                        }
+                    }
+            };
+            FrameStackLayout.Children.Add(frame);
         }
+        FrameScrollView.Content = FrameStackLayout;
+        Main.Children.Add(FrameScrollView);
     }
     private void SearchButton_Clicked(object sender, EventArgs e)
     {
         FrameStackLayout.Children.Clear();
         FrameScrollView.Content = null;
         Main.Children.Remove(FrameScrollView);
-        AddToFilterDormitory(FullNameEntry.Text, FullNameEntry.IsEnabled);
-        AddToFilterDormitory((string)DormitoryNumberPicker.SelectedItem, DormitoryNumberPicker.IsEnabled);
-        AddToFilterDormitory(FloorEntry.Text, FloorEntry.IsEnabled);
-        AddToFilterDormitory((string)RoomNumberPicker.SelectedItem, RoomNumberPicker.IsEnabled);
-        AddToFilterDormitory((string)ContractEndDatePicker.SelectedItem, ContractEndDatePicker.IsEnabled);
-        AddToFilterDormitory((string)IsResidingInDormitoryPicker.SelectedItem, IsResidingInDormitoryPicker.IsEnabled);
-        AddToFilterDormitory((string)FacultyPicker.SelectedItem, FacultyPicker.IsEnabled);
-        AddToFilterDormitory((string)CoursePicker.SelectedItem, CoursePicker.IsEnabled);
-        AddToFilterDormitory((string)DepartmentPicker.SelectedItem, DepartmentPicker.IsEnabled);
+        AddToFilterDormitory("FullName", FullNameEntry.Text, FullNameEntry.IsEnabled);
+        AddToFilterDormitory("DormitoryNumber", (string)DormitoryNumberPicker.SelectedItem, DormitoryNumberPicker.IsEnabled);
+        AddToFilterDormitory("Floor", FloorEntry.Text, FloorEntry.IsEnabled);
+        AddToFilterDormitory("RoomNumber", (string)RoomNumberPicker.SelectedItem, RoomNumberPicker.IsEnabled);
+        AddToFilterDormitory("ContractEndDate", (string)ContractEndDatePicker.SelectedItem, ContractEndDatePicker.IsEnabled);
+        AddToFilterDormitory("IsResidingInDormitory", (string)IsResidingInDormitoryPicker.SelectedItem, IsResidingInDormitoryPicker.IsEnabled);
+        AddToFilterDormitory("Faculty", (string)FacultyPicker.SelectedItem, FacultyPicker.IsEnabled);
+        AddToFilterDormitory("Department", (string)DepartmentPicker.SelectedItem, DepartmentPicker.IsEnabled);
+        AddToFilterDormitory("Course", (string)CoursePicker.SelectedItem, CoursePicker.IsEnabled);
         if (LINQBox.IsChecked)
         {
             List<Dormitory> dormitories = LINQ.Search(selectedFilePath, filterDormitory);
-            foreach (Dormitory dormitory in dormitories)
-            {
-                Frame frame = new Frame
-                {
-                    BorderColor = Colors.Black,
-                    BackgroundColor = Colors.Beige,
-                    CornerRadius = 15,
-                    Margin = new Thickness(0, 0, 5, 0),
-                    Content = new VerticalStackLayout
-                    {
-                        new HorizontalStackLayout
-                        {
-                            new Label { Text = "П.І.П:", FontFamily = "Impact", FontSize = 13, Padding = new Thickness(0, 0, 5, 0) },
-                            new Label { Text = dormitory.FullName, FontSize = 13 }
-                        },
-                        new HorizontalStackLayout
-                        {
-                            new Label { Text = "Номер гуртожитку:", FontFamily = "Impact", FontSize = 13, Padding = new Thickness(0, 0, 5, 0) },
-                            new Label { Text = dormitory.DormitoryNumber.ToString(), FontSize = 13 }
-                        },
-                        new HorizontalStackLayout
-                        {
-                            new Label { Text = "Поверх:", FontFamily = "Impact", FontSize = 13, Padding = new Thickness(0, 0, 5, 0) },
-                            new Label { Text = dormitory.Floor.ToString(), FontSize = 13 }
-                        },
-                        new HorizontalStackLayout
-                        {
-                            new Label { Text = "Номер кімнати:", FontFamily = "Impact", FontSize = 13, Padding = new Thickness(0, 0, 5, 0) },
-                            new Label { Text = dormitory.RoomNumber.ToString(), FontSize = 13 }
-                        },
-                        new HorizontalStackLayout
-                        {
-                            new Label { Text = "Дата закінчення договору:", FontFamily = "Impact", FontSize = 13, Padding = new Thickness(0, 0, 5, 0) },
-                            new Label { Text = dormitory.ContractEndDate.ToString("yyyy-MM-dd"), FontSize = 13 }
-                        },
-                        new HorizontalStackLayout
-                        {
-                            new Label { Text = "Чи проживає у гуртожитку:", FontFamily = "Impact", FontSize = 13, Padding = new Thickness(0, 0, 5, 0) },
-                            new Label { Text = dormitory.IsResidingInDormitory.ToString(), FontSize = 13 }
-                        },
-                        new HorizontalStackLayout
-                        {
-                            new Label { Text = "Факультет:", FontFamily = "Impact", FontSize = 13, Padding = new Thickness(0, 0, 5, 0) },
-                            new Label { Text = dormitory.Faculty.ToString(), FontSize = 13 }
-                        },
-                        new HorizontalStackLayout
-                        {
-                            new Label { Text = "Кафедра:", FontFamily = "Impact", FontSize = 13, Padding = new Thickness(0, 0, 5, 0) },
-                            new Label { Text = dormitory.Department.ToString(), FontSize = 13 }
-                        },
-                        new HorizontalStackLayout
-                        {
-                            new Label { Text = "Курс:", FontFamily = "Impact", FontSize = 13, Padding = new Thickness(0, 0, 5, 0) },
-                            new Label { Text = dormitory.Course.ToString(), FontSize = 13 }
-                        }
-                    }
-                };
-                FrameStackLayout.Children.Add(frame);
-            }
-            FrameScrollView.Content = FrameStackLayout;
-            Main.Children.Add(FrameScrollView);
+            DisplayDormitories(dormitories);
+        }
+        if (DOMBox.IsChecked)
+        {
+            List<Dormitory> dormitories = DOM.Search(selectedFilePath, filterDormitory);
+            DisplayDormitories(dormitories);
+        }
+        if (SAXBox.IsChecked)
+        {
+            List<Dormitory> dormitories = SAX.Search(selectedFilePath, filterDormitory);
+            DisplayDormitories(dormitories);
         }
         filterDormitory.Clear();
     } 

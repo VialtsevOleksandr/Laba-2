@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dormitories>
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Іванов Олег Анатолійович</FullName>
+			<DormitoryNumber>15</DormitoryNumber>
+			<Floor>7</Floor>
+			<RoomNumber>703/1</RoomNumber>
+			<ContractEndDate>2024-06-30</ContractEndDate>
+			<IsResidingInDormitory>Так</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Факультет фізики</Faculty>
+				<Department>Експериментальна фізика</Department>
+				<Course>2</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Мартиненко Олена Вікторівна</FullName>
+			<DormitoryNumber>19</DormitoryNumber>
+			<Floor>4</Floor>
+			<RoomNumber>404/1</RoomNumber>
+			<ContractEndDate>2025-06-30</ContractEndDate>
+			<IsResidingInDormitory>Ні</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Інститут біології</Faculty>
+				<Department>Генетика</Department>
+				<Course>3</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Григоренко Михайло Ігорович</FullName>
+			<DormitoryNumber>14</DormitoryNumber>
+			<Floor>5</Floor>
+			<RoomNumber>504/2</RoomNumber>
+			<ContractEndDate>2024-06-30</ContractEndDate>
+			<IsResidingInDormitory>Так</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Факультет економіки</Faculty>
+				<Department>Економічна теорія</Department>
+				<Course>1</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Даниленко Анастасія Павлівна</FullName>
+			<DormitoryNumber>16</DormitoryNumber>
+			<Floor>6</Floor>
+			<RoomNumber>604/1</RoomNumber>
+			<ContractEndDate>2026-06-30</ContractEndDate>
+			<IsResidingInDormitory>Так</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Інститут інженерії програмного забезпечення</Faculty>
+				<Department>Системне програмування</Department>
+				<Course>2</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Козак Оксана Сергіївна</FullName>
+			<DormitoryNumber>18</DormitoryNumber>
+			<Floor>8</Floor>
+			<RoomNumber>804/2</RoomNumber>
+			<ContractEndDate>2025-06-30</ContractEndDate>
+			<IsResidingInDormitory>Ні</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Інститут мистецтв</Faculty>
+				<Department>Живопис</Department>
+				<Course>3</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Литвиненко Дмитро Андрійович</FullName>
+			<DormitoryNumber>15</DormitoryNumber>
+			<Floor>7</Floor>
+			<RoomNumber>703/2</RoomNumber>
+			<ContractEndDate>2026-06-30</ContractEndDate>
+			<IsResidingInDormitory>Так</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Факультет права</Faculty>
+				<Department>Кримінальне право</Department>
+				<Course>1</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Савченко Олексій Миколайович</FullName>
+			<DormitoryNumber>19</DormitoryNumber>
+			<Floor>5</Floor>
+			<RoomNumber>504/3</RoomNumber>
+			<ContractEndDate>2025-06-30</ContractEndDate>
+			<IsResidingInDormitory>Так</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Інститут соціології</Faculty>
+				<Department>Соціальна статистика</Department>
+				<Course>2</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+
+	<dormitory>
+		<PersonalInformation>
+			<FullName>Іванова Марія Олександрівна</FullName>
+			<DormitoryNumber>14</DormitoryNumber>
+			<Floor>6</Floor>
+			<RoomNumber>604/3</RoomNumber>
+			<ContractEndDate>2024-06-30</ContractEndDate>
+			<IsResidingInDormitory>Ні</IsResidingInDormitory>
+			<AcademicDetails>
+				<Faculty>Факультет інформаційних технологій</Faculty>
+				<Department>Інформаційні системи</Department>
+				<Course>3</Course>
+			</AcademicDetails>
+		</PersonalInformation>
+	</dormitory>
+</dormitories>

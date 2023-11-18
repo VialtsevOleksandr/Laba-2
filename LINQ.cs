@@ -11,26 +11,41 @@ namespace Laba_2;
 
 public class LINQ: ISearch
 {
-    public List<Dormitory> Search(string xmlFilePath, List<string> filterDormitory)
+    public List<Dormitory> Search(string xmlFilePath, Dictionary<string, string> filterDormitory)
     {
         XDocument doc = XDocument.Load(xmlFilePath);
         var dormitories = doc.Descendants("dormitory")
             .Where(d => filterDormitory.All(filter =>
             {
                 int filterInt;
-                bool isInt = Int32.TryParse(filter, out filterInt);
-                if (isInt)
+                bool isInt = Int32.TryParse(filter.Value, out filterInt);
+                if (!string.IsNullOrEmpty(filter.Value) && isInt == true)
                 {
-                    // Якщо фільтр є цілим числом, порівнюємо його зі значеннями "DormitoryNumber", "Floor" та "Course" як цілими числами
-                    //return d.Element("PersonalInformation").Value.Contains(filterInt);
-                    return int.Parse(d.Element("PersonalInformation").Element("DormitoryNumber").Value) == filterInt
-                        || int.Parse(d.Element("PersonalInformation").Element("Floor").Value) == filterInt
-                        || int.Parse(d.Element("PersonalInformation").Element("AcademicDetails").Element("Course").Value) == filterInt;
+                    if (filter.Key == "Course")
+                    {
+                        return int.Parse(d.Element("PersonalInformation").Element("AcademicDetails").Element(filter.Key).Value) == filterInt;
+                    }
+                   else if (filter.Key == "DormitoryNumber" || filter.Key == "Floor")
+                    {
+                        return int.Parse(d.Element("PersonalInformation").Element(filter.Key).Value) == filterInt;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+              
                 }
-                else
+                else 
                 {
-                    // Якщо фільтр не є цілим числом, порівнюємо його зі значеннями як рядками
-                    return d.Element("PersonalInformation").Value.Contains(filter);
+                    if (filter.Key == "Faculty" || filter.Key == "Department")
+                    {
+                        return d.Element("PersonalInformation").Element("AcademicDetails").Element(filter.Key).Value == filter.Value;
+                    }
+                    if (filter.Key == "FullName")
+                    {
+                        return d.Element("PersonalInformation").Value.Contains(filter.Value);
+                    }
+                    return d.Element("PersonalInformation").Element(filter.Key).Value == filter.Value;
                 }
             }))
             .Select(d => new Dormitory
